@@ -4,10 +4,9 @@ const $authorInput = document.getElementById('author');
 const $messageErrorMessage = document.getElementById('message-error');
 const $messageInput = document.getElementById('message');
 
+const $resetButton = document.getElementById('reset-btn');
+
 const $messageList = document.getElementById('message-list');
-
-const $reset = document.getElementById('btn-reset');
-
 
 // Ustawianie domyslnej wartosci przy uzyciu operatora || lub ??
 // const persistedMessagesString = localStorage.getItem('messages') ?? '[]'; <- podobnie do || ale tylko dla null i undefined
@@ -75,7 +74,7 @@ const renderMesssages = (messagesArray) => {
                 <span>${message.body}</span>
 
                 <button class="like-btn btn btn-info" ${message.liked && 'disabled'}>:)</button>
-                <button class="dislike-btn btn btn-warning" ${message.disliked && 'disabled'}>:(</button>
+                <button class="dislike-btn btn btn-warning"  ${message.disliked && 'disabled'}>:(</button>
                 <button class="delete-btn btn btn-danger">Usun</button>
             </li>
         `;
@@ -152,8 +151,6 @@ document.querySelector('#message-form').addEventListener('submit', (e) => {
     saveData();
 
     renderMesssages(messagesArray);
-
-    defoultFormInput();
 });
 
 $authorInput.addEventListener('input', (e) => {
@@ -164,6 +161,9 @@ $messageInput.addEventListener('input', (e) => {
     validateMessageField(e.target.value);
 });
 
-
+$resetButton.addEventListener('click', () => {
+    $authorInput.value = null;
+    $messageInput.value = null;
+});
 
 renderMesssages(messagesArray);
